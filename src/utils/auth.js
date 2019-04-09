@@ -33,10 +33,15 @@ class Auth {
   }
 
   logout() {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('expires_at');
-    localStorage.removeItem('user');
+    // localStorage.removeItem('access_token');
+    // localStorage.removeItem('id_token');
+    // localStorage.removeItem('expires_at');
+    // localStorage.removeItem('user');
+     // Remove tokens and expiry time
+     this.accessToken = null
+     this.idToken = null
+     this.expiresAt = 0
+     this.userProfile = null
   }
 
   handleAuthentication() {
@@ -57,33 +62,70 @@ class Auth {
     }
   }
 
+  // isAuthenticated() {
+  //   const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+  //   return new Date().getTime() < expiresAt;
+  // }
+
   isAuthenticated() {
-    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    return new Date().getTime() < expiresAt;
+    // Check whether the current time is past the
+    // access token's expiry time
+    let expiresAt = this.expiresAt
+    return new Date().getTime() < expiresAt
   }
 
-  setSession(authResult) {
-    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-    localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem('expires_at', expiresAt);
+  //   setSession(authResult) {
+  //   const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+  //   localStorage.setItem('access_token', authResult.accessToken);
+  //   localStorage.setItem('id_token', authResult.idToken);
+  //   localStorage.setItem('expires_at', expiresAt);
 
-    this.auth0.client.userInfo(authResult.accessToken, (err, user) => {
-      localStorage.setItem('user', JSON.stringify(user));
+  //   this.auth0.client.userInfo(authResult.accessToken,  (err, user) => {
+  //      localStorage.setItem('user', JSON.stringify(user));
+  //   })
+  // }
+
+  setSession(authResult) {
+    // // Set isLoggedIn flag in localStorage
+    // localStorage.setItem('isLoggedIn', 'true')
+
+    // Set the time that the access token will expire at
+    let expiresAt = authResult.expiresIn * 1000 + new Date().getTime()
+    this.accessToken = authResult.accessToken
+    this.idToken = authResult.idToken
+    this.expiresAt = expiresAt
+
+    this.auth0.client.userInfo(this.accessToken, (err, profile) => {
+      if (profile) {
+        this.userProfile = profile
+      }
+      // navigateTo to the home route
+      navigate('/')
     })
   }
 
   getUser() {
-    if (localStorage.getItem('user')) {
-      return JSON.parse(localStorage.getItem('user'));
-    }
+    return this.userProfile
   }
 
   getUserName() {
     if (this.getUser()) {
-      return this.getUser().name;
+      return this.getUser().name
     }
   }
+
+
+  //  getUser() {
+  //   if (localStorage.getItem('user')) {
+  //     return  JSON.parse(localStorage.getItem('user'));
+  //   }
+  // }
+
+  // getUserName() {
+  //   if (this.getUser()) {
+  //     return this.getUser().name;
+  //   }
+  // }
 
 
   login() {

@@ -1,7 +1,7 @@
 import React from "react"
 import { css } from "@emotion/core"
-import { Link, StaticQuery, graphql , navigate } from "gatsby"
-import { getUser, isLoggedIn, logout } from "../services/auth"
+import { Link, StaticQuery, graphql  } from "gatsby"
+// import { getUser, isLoggedIn, logout } from "../services/auth"
 import auth from '../utils/auth'
 
 import { rhythm } from "../utils/typography"
@@ -12,17 +12,23 @@ export default class Layout extends React.Component {
     super(props)
     this.state = {
       authenticated: false,
-      username: ''
+      
     }
   }
 
    login () {
      auth.login()
 
+    
+
      this.setState({
       authenticated: auth.isAuthenticated(),
      
     })
+
+    
+
+
   }
 
   logout() {
@@ -33,31 +39,42 @@ export default class Layout extends React.Component {
     })
   }
 
-  componentDidMount() {
+  componentDidMount () {
+
+    // const username =   auth.getUserName();
+    // console.log('username in componentDidMount' , username)
+    
     this.setState({
       authenticated: auth.isAuthenticated(),
     })
   }
 
-  componentDidUpdate () {
+  // componentDidUpdate () {
     
-      if (auth.isAuthenticated() === true && this.state.username == '') {
-        console.log('this is the NAME?',auth.getUserName())
+  //     if (auth.isAuthenticated() === true && this.state.username === '') {
+  //       console.log('this is the NAME?',auth.getUserName())
 
-        this.setState({
-          username: auth.getUserName()
-        });
-      }
+  //       this.setState({
+  //         username: auth.getUserName()
+  //       });
+  //     }
    
-  }
+  // }
+
+  // componentWillUnmount () {
+  //   console.log('unmounted')
+  // }
 
   
   
  render () { 
 
+  console.log('this is the state for auth' , this.state)
+  console.log('this is Username from local storage' , auth.getUserName())
+
   const content = { message: "", login: true }
   if (this.state.authenticated ) {
-    content.message = `Hello, ${this.state.username}`
+    content.message = `Hello, ${auth.getUserName()}`
   } else {
     content.message = "You are not logged in"
   }
@@ -157,6 +174,8 @@ export default class Layout extends React.Component {
               </a>
               </div>
                )}
+
+    <h1> {auth.getUserName()}</h1>
 
 
         
