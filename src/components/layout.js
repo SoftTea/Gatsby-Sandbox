@@ -41,36 +41,20 @@ export default class Layout extends React.Component {
 
   componentDidMount () {
 
-    // const username =   auth.getUserName();
-    // console.log('username in componentDidMount' , username)
+    const { renewSession } = auth;
+
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+      renewSession();
+    }
     
     this.setState({
       authenticated: auth.isAuthenticated(),
     })
   }
 
-  // componentDidUpdate () {
-    
-  //     if (auth.isAuthenticated() === true && this.state.username === '') {
-  //       console.log('this is the NAME?',auth.getUserName())
-
-  //       this.setState({
-  //         username: auth.getUserName()
-  //       });
-  //     }
-   
-  // }
-
-  // componentWillUnmount () {
-  //   console.log('unmounted')
-  // }
-
   
   
  render () { 
-
-  console.log('this is the state for auth' , this.state)
-  console.log('this is Username from local storage' , auth.getUserName())
 
   const content = { message: "", login: true }
   if (this.state.authenticated ) {
@@ -108,7 +92,7 @@ export default class Layout extends React.Component {
           font-style: normal;
         `}
       >
-        { content.message}
+         {data.site.siteMetadata.title} 
       </h3>
     </Link>
     <span css={css`
@@ -124,10 +108,12 @@ export default class Layout extends React.Component {
       About
     </Link>
 
-    <Link css={css`
-        float: right;
-        margin-right: 10px
-      `} to="/app/profile">Profile</Link> 
+   {this.state.authenticated && (
+     <Link css={css`
+     float: right;
+     margin-right: 10px
+   `} to="/app/profile">Profile</Link> 
+   )} 
     {/* {isLoggedIn() ? (
           <a css={css`
           float: right;
@@ -175,7 +161,6 @@ export default class Layout extends React.Component {
               </div>
                )}
 
-    <h1> {auth.getUserName()}</h1>
 
 
         
