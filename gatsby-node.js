@@ -79,11 +79,13 @@ exports.createPages = ({ graphql, actions }) => {
   //   return config;
   // };
 
-  // exports.onCreateWebpackConfig = ({ stage, actions }) => {
-  //   switch (stage) {
-  //     case `build-html`:
-  //     actions.setWebpackConfig({
-  //                plugins: [DefinePlugin],
-  //              })
-  //          }
-  //         }
+  exports.onCreateWebpackConfig = ({ stage, actions, plugins }) => {
+    switch (stage) {
+      case `build-html`:
+      actions.setWebpackConfig({
+                 plugins: [ 
+                  plugins.define({ "global.GENTLY": false })   
+                ],
+               })
+           }
+          }
