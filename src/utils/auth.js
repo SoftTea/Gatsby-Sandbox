@@ -3,8 +3,8 @@ import auth0 from 'auth0-js';
 import { navigate } from "gatsby-link";
 
 
-const AUTH0_DOMAIN = 'dev-8b38gedz.auth0.com';
-const AUTH0_CLIENT_ID = 'UoKWqkNS8P9otjfsFTM6kCbeksevrgw6';
+const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN
+const AUTH0_CLIENT_ID = process.env.AUTH0_CLIENT_ID;
 
 class Auth {
 

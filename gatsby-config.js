@@ -3,6 +3,7 @@ module.exports = {
         title: `Amazing Pandas Eating Things`,
       },
     plugins: [
+      `gatsby-plugin-netlify-cms`,
       {
         resolve: `gatsby-source-filesystem`,
         options: {
