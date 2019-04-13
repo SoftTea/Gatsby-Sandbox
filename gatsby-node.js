@@ -62,15 +62,28 @@ exports.createPages = ({ graphql, actions }) => {
   }
 
   // Due to a dependency issue, we also need to tell Gatsby about a global variable in order for Webpack to know about it in production builds. This won't affect us in development, but later on this could come back and surprise us!
+
+  // this was from an older out of date article before Gatsby 2
+  // https://auth0.com/blog/building-a-blog-with-gatsby-react-and-webtask/
   
-  exports.modifyWebpackConfig = ({ config, stage }) => {
-    switch (stage) {
-      case "build-html":
-        config.plugin('define', webpack.DefinePlugin, [ { "global.GENTLY": false } ]);
+  // Very unsure why we were setting this in the webpack or exactly what the updated version does?? :P
   
-          break;
-    }
+  // exports.modifyWebpackConfig = ({ config, stage }) => {
+  //   switch (stage) {
+  //     case "build-html":
+  //       config.plugin('define', webpack.DefinePlugin, [ { "global.GENTLY": false } ]);
   
-    return config;
-  };
+  //         break;
+  //   }
   
+  //   return config;
+  // };
+
+  // exports.onCreateWebpackConfig = ({ stage, actions }) => {
+  //   switch (stage) {
+  //     case `build-html`:
+  //     actions.setWebpackConfig({
+  //                plugins: [DefinePlugin],
+  //              })
+  //          }
+  //         }
