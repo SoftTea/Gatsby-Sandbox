@@ -18,7 +18,7 @@ class Auth {
   auth0 = isBrowser ? new auth0.WebAuth({
     domain: AUTH0_DOMAIN,
     clientID: AUTH0_CLIENT_ID,
-    redirectUri: 'http://localhost:8000/callback',
+    redirectUri: 'https://admiring-newton-c5f56a.netlify.com/callback',
     audience: `https://${AUTH0_DOMAIN}/api/v2/`,
     responseType: 'token id_token',
     scope: 'openid profile email'
