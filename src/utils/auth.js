@@ -15,14 +15,14 @@ class Auth {
   expiresAt
   userProfile
 
-  auth0 = isBrowser ? new auth0.WebAuth({
+  auth0 =  new auth0.WebAuth({
     domain: AUTH0_DOMAIN,
     clientID: AUTH0_CLIENT_ID,
     redirectUri: 'https://admiring-newton-c5f56a.netlify.com/callback',
     audience: `https://${AUTH0_DOMAIN}/api/v2/`,
     responseType: 'token id_token',
     scope: 'openid profile email'
-  }) : {} ;
+  }) ;
 
   constructor() {
     this.login = this.login.bind(this);
@@ -161,7 +161,7 @@ class Auth {
   }
 }
 
-const auth = new Auth()
+const auth = isBrowser ? new Auth() : {}
 export default auth
 
 
