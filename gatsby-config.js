@@ -18,6 +18,13 @@ module.exports = {
           path: `${__dirname}/blog`,
         },
       },
+      {
+        resolve: `gatsby-source-filesystem`,
+        options: {
+          name: `blog-esp`,
+          path: `${__dirname}/_posts`,
+        },
+      },
       `gatsby-transformer-remark`,
       `gatsby-plugin-emotion`,
       {
