@@ -22,6 +22,7 @@ collections:
     create: true
     filter: {field: "language", value: "en"}
     fields:
+      - {name: path, label: Path, widget: "hidden", default: "blog"}
       - {label: "Language", name: "language", widget: "select", options: ["en", "es"]}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Content", name: "body", widget: "markdown"}
