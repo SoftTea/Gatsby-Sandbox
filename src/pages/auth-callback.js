@@ -1,6 +1,6 @@
 import React from 'react'
 import auth from '../utils/auth'
-import navigate from 'gatsby'
+
 
 class LoadingSvg extends React.Component {
   render() {

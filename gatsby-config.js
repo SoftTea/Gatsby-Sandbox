@@ -3,7 +3,12 @@ module.exports = {
         title: `Amazing Pandas Eating Things`,
       },
     plugins: [
-      `gatsby-plugin-netlify-cms`,
+      {
+        resolve: `gatsby-plugin-netlify-cms`,
+        options: {
+          enableIdentityWidget: false,
+        },
+      },
       {
         resolve: `gatsby-source-filesystem`,
         options: {
